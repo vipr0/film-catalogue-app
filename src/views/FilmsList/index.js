@@ -20,7 +20,7 @@ function FilmsList() {
         api
             .getAllFilms()
             .then(({data}) => setList(data.data.films))
-            .catch(err => message.error(err.message))
+            .catch(err => message.error(err.response.data.message))
             .finally(() => setIsLoading(false))
     }, [])
 

@@ -11,7 +11,7 @@ function AddFilmDrawer({ visible, setVisible }) {
         api
             .addNewFilm(data)
             .then(res => message.success("Film was successfully added"))
-            .catch(err => message.error(err.message))
+            .catch(err => message.error(err.response.data.message))
             .finally(() => setVisible(false))
 
         setVisible(false)

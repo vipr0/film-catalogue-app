@@ -19,7 +19,7 @@ function ImportFromFileDrawer({ visible, setVisible }) {
         api
             .importFilmsFromFile(formData)
             .then(({ data }) => message.success(`Films imported (${data.data.successes} successfully, ${data.data.fails} fails)`))
-            .catch(err => message.error(`${data.file.name} file upload failed.`))
+            .catch(err => message.error(err.response.data.message))
       };
 
     return (

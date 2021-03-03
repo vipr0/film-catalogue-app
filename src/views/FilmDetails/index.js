@@ -14,7 +14,7 @@ function FilmDetails() {
         api
             .getFilm(filmId)
             .then(({data}) => setFilm(data.data.film))
-            .catch(err => message.error(err.message))
+            .catch(err => message.error(err.response.data.message))
             .finally(() => setIsLoading(false))
     }, [])
 
