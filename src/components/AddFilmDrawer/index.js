@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, DatePicker, Form, Select, Input, Drawer } from 'antd';
+import { Button, DatePicker, Form, Select, Input, Drawer, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import api from "../../utils/api";
 
@@ -10,11 +10,9 @@ function AddFilmDrawer({ visible, setVisible }) {
 
         api
             .addNewFilm(data)
-            .then(res => alert("Film was successfully added"))
-            .catch(err => {
-                alert(err.message)
-                console.log(err.message)
-            })
+            .then(res => message.success("Film was successfully added"))
+            .catch(err => message.error(err.message))
+            .finally(() => setVisible(false))
 
         setVisible(false)
     }
