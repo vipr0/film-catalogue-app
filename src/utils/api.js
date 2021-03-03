@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { apiUrl } from "../config.json";
+
+export const apiUrl = process.env.REACT_APP_API_URL
 
 const api = {
     getAllFilms: async () => await axios.get(`${apiUrl}/films`),

@@ -1,13 +1,14 @@
 import React from "react";
 import { Drawer, Upload, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
+import { apiUrl } from "../../utils/api";
 const { Dragger } = Upload;
 
 function ImportFromFileDrawer({ visible, setVisible }) {
     const props = {
         name: 'file',
         multiple: false,
-        action: 'http://localhost:3000/films/import',
+        action: `${apiUrl}/films/import`,
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {
