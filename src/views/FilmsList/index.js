@@ -51,7 +51,7 @@ function FilmsList() {
                     </div>
     
                     <Row gutter={[16, 24]}>
-                        {list.map(item => (<Col span={8}><FilmCard film={item} /></Col>))}
+                        {list.map(item => (<Col key={item._id} span={8}><FilmCard film={item} /></Col>))}
                     </Row>
     
                     <AddFilmDrawer visible={addFilmVisible} setVisible={setAddFilmVisible} />

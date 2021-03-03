@@ -47,7 +47,7 @@ function FilmDetails() {
                             <Descriptions.Item label="Release Year">{film.releaseYear}</Descriptions.Item>
                             <Descriptions.Item label="Format">{film.format}</Descriptions.Item>
                             <Descriptions.Item label="Stars">
-                                {film.stars && film.stars.map(star => (<div className="star-list__item">{star}</div>))}
+                                {film.stars && film.stars.map(star => (<div key={star} className="star-list__item">{star}</div>))}
                             </Descriptions.Item>
                         </Descriptions>
                     </PageHeader>
