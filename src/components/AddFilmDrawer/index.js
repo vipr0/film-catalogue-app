@@ -20,7 +20,6 @@ function AddFilmDrawer({ visible, setVisible }) {
     return (
         <Drawer
             title="Add a new film"
-            width={500}
             onClose={() => setVisible(false)}
             visible={visible}
         >

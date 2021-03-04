@@ -38,7 +38,7 @@ function FilmDetails() {
                         ghost={false}
                         onBack={() => window.history.back()}
                         title={film.title}
-                        subTitle={film._id}
+                        subTitle={<p className="description-subtitle">{film._id}</p>}
                         extra={[
                             <Button onClick={deleteFilm} type="primary" danger>Delete film</Button>
                         ]}
@@ -47,7 +47,9 @@ function FilmDetails() {
                             <Descriptions.Item label="Release Year">{film.releaseYear}</Descriptions.Item>
                             <Descriptions.Item label="Format">{film.format}</Descriptions.Item>
                             <Descriptions.Item label="Stars">
-                                {film.stars && film.stars.map(star => (<div key={star} className="star-list__item">{star}</div>))}
+                                <div className="star-list">
+                                    {film.stars && film.stars.map(star => (<div key={star} className="star-list__item">{star}</div>))}
+                                </div>
                             </Descriptions.Item>
                         </Descriptions>
                     </PageHeader>

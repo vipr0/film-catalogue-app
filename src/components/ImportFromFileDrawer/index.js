@@ -25,7 +25,6 @@ function ImportFromFileDrawer({ visible, setVisible }) {
     return (
         <Drawer
             title="Import films from a file"
-            width={500}
             onClose={() => setVisible(false)}
             visible={visible}
         >

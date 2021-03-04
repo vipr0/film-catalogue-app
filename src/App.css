@@ -5,14 +5,38 @@
   justify-content: space-between;
 }
 
+@media (max-width: 480px) {
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+}
+
 .page-header__button:not(:last-child) {
   margin-right: 10px;
+}
+
+.description-subtitle {
+  margin: 0;
+}
+
+@media (max-width: 620px) {
+  .description-subtitle {
+    display: none;
+  }
+}
+
+.star-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .star-list__item {
   border: 1px solid #f0f0f0;
   background: #fafafa;
   padding: 5px 10px;
+  margin-bottom: 10px;
 }
 
 .star-list__item:not(:last-child) {
