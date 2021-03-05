@@ -4,17 +4,19 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import api from "../../utils/api";
 
 function AddFilmDrawer({ visible, setVisible }) {
+    const [form] = Form.useForm();
 
-    const onFinish = async (data) => {
+    const onFinish = async (data) => {        
         data = { ...data, releaseYear: data.releaseYear.format('YYYY')}
 
         api
             .addNewFilm(data)
-            .then(res => message.success("Film was successfully added"))
-            .catch(err => message.error(err.response.data.message))
-            .finally(() => setVisible(false))
-
-        setVisible(false)
+            .then(res => {
+                form.resetFields();
+                message.success("Film was successfully added");
+                setVisible(false);
+            })
+            .catch(err => message.error(err.response.data.message))    
     }
 
     return (
@@ -23,16 +25,31 @@ function AddFilmDrawer({ visible, setVisible }) {
             onClose={() => setVisible(false)}
             visible={visible}
         >
-            <Form onFinish={onFinish} layout="vertical">
-                <Form.Item required name="title" label="Title">
+            <Form onFinish={onFinish} form={form} layout="vertical">
+                <Form.Item 
+                    required 
+                    name="title" 
+                    label="Title"
+                    rules={[{ required: true, message: 'Please specify title' }]}
+                >
                     <Input placeholder="Enter title" />
                 </Form.Item>
 
-                <Form.Item required name="releaseYear" label="Release Year">
+                <Form.Item 
+                    required
+                    name="releaseYear" 
+                    label="Release Year"
+                    rules={[{ required: true, message: 'Please specify release year' }]}
+                >
                     <DatePicker picker="year" />
                 </Form.Item>
 
-                <Form.Item required name="format" label="Format">
+                <Form.Item 
+                    required 
+                    name="format" 
+                    label="Format"
+                    rules={[{ required: true, message: 'Please specify format' }]}
+                >
                     <Select>
                         <Select.Option value="VHS">VHS</Select.Option>
                         <Select.Option value="DVD">DVD</Select.Option>
@@ -40,32 +57,36 @@ function AddFilmDrawer({ visible, setVisible }) {
                     </Select>
                 </Form.Item>
 
-                <Form.List name="stars" label="Stars">
+                <Form.List 
+                    name="stars" 
+                    label="Stars"
+                    rules={[{ required: true, message: 'Please specify list of stars' }]}
+                >
                     {(fields, { add, remove }) => {
                         return (
                             <div>
                                 {fields.map((field, index) => (
-                                <Form.Item required key={field.key} label={index === 0 ? "Stars" : ""}>
-                                    <Form.Item
-                                        {...field}
-                                        validateTrigger={["onChange", "onBlur"]}
-                                        rules={[
-                                            {
-                                                required: true,
-                                                whitespace: true,
-                                                message: "Enter star name on delete this field",
-                                            },
-                                        ]}
-                                        noStyle
-                                    >
-                                        <Input placeholder="star" style={{ width: "85%" }}/>
-                                    </Form.Item>
-                                        {fields.length > 1 ? (
+                                    <Form.Item required key={field.key} label={index === 0 ? "Stars" : ""}>
+                                        <Form.Item
+                                            {...field}
+                                            validateTrigger={["onChange", "onBlur"]}
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    whitespace: true,
+                                                    message: "Enter star name on delete this field",
+                                                },
+                                            ]}
+                                            noStyle
+                                        >
+                                            <Input placeholder="star" style={{ width: "85%" }}/>
+                                        </Form.Item>
+                                        { fields.length > 1 ? (
                                             <MinusCircleOutlined
                                                 style={{ margin: "0 8px" }}
                                                 onClick={() => remove(field.name)}
                                             />
-                                        ) : null}
+                                        ) : null }
                                     </Form.Item>
                                 ))}
 
