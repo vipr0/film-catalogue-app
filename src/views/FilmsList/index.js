@@ -27,41 +27,43 @@ function FilmsList() {
     if(isLoading) {
         return (<Loader/>)
     } else {
-        if(list.length > 0) {
-            return (
-                <div>
-                    <div className="page-header">
-                        <Title level={2}>List of all films</Title>
-                        
-                        <div>
-                            <Button
-                                className="page-header__button"
-                                onClick={() => setAddFilmVisible(true)} 
-                                type="primary">
-                                <PlusOutlined /> Add film
-                            </Button>
-    
-                            <Button 
-                                className="page-header__button"
-                                onClick={() => setImportFromFileVisible(true)} 
-                                type="secondary">
-                                <FileAddOutlined /> Import from file
-                            </Button>
-                        </div>
+        return (
+            <div>
+                <div className="page-header">
+                    <Title level={2}>List of all films</Title>
+                    
+                    <div>
+                        <Button
+                            className="page-header__button"
+                            onClick={() => setAddFilmVisible(true)} 
+                            type="primary">
+                            <PlusOutlined /> Add film
+                        </Button>
+
+                        <Button 
+                            className="page-header__button"
+                            onClick={() => setImportFromFileVisible(true)} 
+                            type="secondary">
+                            <FileAddOutlined /> Import from file
+                        </Button>
                     </div>
-    
-                    <Row gutter={[16, 24]}>
-                        {list.map(item => (<Col key={item._id} xs={24} sm={12} xl={8}><FilmCard film={item} /></Col>))}
-                    </Row>
-    
-                    <AddFilmDrawer visible={addFilmVisible} setVisible={setAddFilmVisible} />
-    
-                    <ImportFromFileDrawer visible={importFromFileVisible} setVisible={setImportFromFileVisible} />
                 </div>
-            )
-        } else {
-            return (<Empty/>)
-        }
+
+                {
+                    list.length > 0 ? 
+                    (
+                        <Row gutter={[16, 24]}>
+                            {list.map(item => (<Col key={item._id} xs={24} sm={12} xl={8}><FilmCard film={item} /></Col>))}
+                        </Row>
+                    ) :
+                    ( <Empty/> )
+                }
+
+                <AddFilmDrawer visible={addFilmVisible} setVisible={setAddFilmVisible} />
+
+                <ImportFromFileDrawer visible={importFromFileVisible} setVisible={setImportFromFileVisible} />
+            </div>
+        )
     }
 
 }
