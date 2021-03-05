@@ -24,7 +24,7 @@ function SearchPage() {
                     renderItem={item => (
                         <List.Item>
                             <Card title={item.title}>
-                                <Text>Stars: {item.stars.reduce((acc, item) => `${acc}, ${item}`)}</Text>
+                                <Text>Stars: {item.stars.length > 0 && item.stars.reduce((acc, item) => `${acc}, ${item}`)}</Text>
                                 <div className="more-btn">
                                     <Link to={`/${item._id}`}>
                                         <Button type="primary">More info</Button>
