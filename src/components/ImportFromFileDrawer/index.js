@@ -5,6 +5,8 @@ import api from "../../utils/api";
 const { Dragger } = Upload;
 
 function ImportFromFileDrawer({ visible, setVisible }) {
+    const [ form ] = Form.useForm();
+
     const props = {
         name: 'file',
         multiple: false,
@@ -18,7 +20,11 @@ function ImportFromFileDrawer({ visible, setVisible }) {
         
         api
             .importFilmsFromFile(formData)
-            .then(({ data }) => message.success(`Films imported (${data.data.successes} successfully, ${data.data.fails} fails)`))
+            .then(({ data }) =>  {
+                form.resetFields();
+                message.success(`Films imported (${data.data.successes} successfully, ${data.data.fails} fails)`);
+                setVisible(false)
+            })
             .catch(err => message.error(err.response.data.message))
       };
 
@@ -28,7 +34,7 @@ function ImportFromFileDrawer({ visible, setVisible }) {
             onClose={() => setVisible(false)}
             visible={visible}
         >
-            <Form onFinish={handleSubmit}>
+            <Form form={form} onFinish={handleSubmit}>
                 <Form.Item name="file" valuePropName="file">
                     <Dragger {...props}>
                         <p className="ant-upload-drag-icon">
