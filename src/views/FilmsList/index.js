@@ -16,13 +16,15 @@ function FilmsList() {
     const [importFromFileVisible, setImportFromFileVisible] = useState(false)
     const [list, setList] = useState([])
 
-    useEffect(() => {
+    const getFilmList = () => {
         api
             .getAllFilms()
             .then(({data}) => setList(data.data.films))
             .catch(err => message.error(err.response.data.message))
             .finally(() => setIsLoading(false))
-    }, [])
+    }
+
+    useEffect(getFilmList, [])
 
     if(isLoading) {
         return (<Loader/>)
@@ -59,9 +61,9 @@ function FilmsList() {
                     ( <Empty/> )
                 }
 
-                <AddFilmDrawer visible={addFilmVisible} setVisible={setAddFilmVisible} />
+                <AddFilmDrawer visible={addFilmVisible} setVisible={setAddFilmVisible} onSuccess={getFilmList} />
 
-                <ImportFromFileDrawer visible={importFromFileVisible} setVisible={setImportFromFileVisible} />
+                <ImportFromFileDrawer visible={importFromFileVisible} setVisible={setImportFromFileVisible} onSuccess={getFilmList} />
             </div>
         )
     }

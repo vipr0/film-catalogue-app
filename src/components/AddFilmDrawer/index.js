@@ -3,7 +3,7 @@ import { Button, DatePicker, Form, Select, Input, Drawer, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import api from "../../utils/api";
 
-function AddFilmDrawer({ visible, setVisible }) {
+function AddFilmDrawer({ visible, setVisible, onSuccess }) {
     const [form] = Form.useForm();
 
     const onFinish = async (data) => {        
@@ -15,6 +15,7 @@ function AddFilmDrawer({ visible, setVisible }) {
                 form.resetFields();
                 message.success("Film was successfully added");
                 setVisible(false);
+                onSuccess();
             })
             .catch(err => message.error(err.response.data.message))    
     }

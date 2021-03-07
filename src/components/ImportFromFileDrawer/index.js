@@ -4,7 +4,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import api from "../../utils/api";
 const { Dragger } = Upload;
 
-function ImportFromFileDrawer({ visible, setVisible }) {
+function ImportFromFileDrawer({ visible, setVisible, onSuccess }) {
     const [ form ] = Form.useForm();
 
     const props = {
@@ -23,7 +23,8 @@ function ImportFromFileDrawer({ visible, setVisible }) {
             .then(({ data }) =>  {
                 form.resetFields();
                 message.success(`Films imported (${data.data.successes} successfully, ${data.data.fails} fails)`);
-                setVisible(false)
+                setVisible(false);
+                onSuccess();
             })
             .catch(err => message.error(err.response.data.message))
       };
